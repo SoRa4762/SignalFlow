@@ -38,7 +38,7 @@ export default function CustomButton({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#019A2C",
-    padding: 12,
+    padding: 13,
     borderRadius: 6,
     flexDirection: "row",
     alignItems: "center",

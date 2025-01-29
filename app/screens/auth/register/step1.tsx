@@ -1,50 +1,126 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import React from "react";
+// app/register/StepOne.js
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { useRouter } from "expo-router";
+import { useState } from "react";
 
-const register1 = () => {
+export default function StepOne() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  const handleNext = () => {
+    // Add validation here
+    router.push({
+      pathname: "/screens/Auth/register/step2",
+      params: formData,
+    });
+  };
+
   return (
-    <View style={style.container}>
-      <View style={style.flexRow}>
-        <Text style={style.text1}>Registration</Text>
-        <Text>
-          <Text style={style.text2}>Step</Text>{" "}
-          <Text style={{ color: "#019A2C", fontSize: 10 }}>1</Text>{" "}
-          <Text style={style.text2}>of 3</Text>
-        </Text>
-      </View>
-      <Text style={{ color: "#757575", marginTop: 16, fontSize: 18 }}>
-        Please Provide Us Your Personal Details To Know You Better
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Personal Information</Text>
 
-      <Text style={style.label}>Name</Text>
-      
+      <TextInput
+        style={styles.input}
+        placeholder="First Name"
+        value={formData.firstName}
+        onChangeText={(text) => setFormData({ ...formData, firstName: text })}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Last Name"
+        value={formData.lastName}
+        onChangeText={(text) => setFormData({ ...formData, lastName: text })}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        value={formData.email}
+        onChangeText={(text) => setFormData({ ...formData, email: text })}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleNext}>
+        <Text style={styles.buttonText}>Next</Text>
+      </TouchableOpacity>
     </View>
   );
-};
+}
 
-const style = StyleSheet.create({
+// Shared styles
+const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
-    width: "100%",
+    flex: 1,
     padding: 20,
+    backgroundColor: "#fff",
   },
-  flexRow: {
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    fontSize: 16,
+  },
+  buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-end",
     marginTop: 20,
   },
-  text1: {
-    fontSize: 26,
-    fontWeight: "600",
+  button: {
+    backgroundColor: "#007AFF",
+    padding: 15,
+    borderRadius: 10,
+    flex: 0.48,
   },
-  text2: {
-    fontSize: 10,
+  buttonBack: {
+    backgroundColor: "#6c757d",
   },
-  label: {
-    marginTop: 16,
-    fontSize: 18,
+  buttonDisabled: {
+    backgroundColor: "#cccccc",
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  imageContainer: {
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+  },
+  placeholderImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderStyle: "dashed",
   },
 });
-
-export default register1;
