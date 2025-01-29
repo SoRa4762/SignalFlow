@@ -4,7 +4,6 @@ import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { Link } from "expo-router";
 
 export default function HomeScreen() {
   return (
@@ -18,7 +17,7 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Hello World!!</ThemedText>
+        <ThemedText type="title">Hello Location!!!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
@@ -54,10 +53,6 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
-      </ThemedView>
-      <ThemedView>
-        <ThemedText type="subtitle">Step 4: Get started</ThemedText>
-        <Link href="/screens/landing/landingscreen">Go to landing screen</Link>
       </ThemedView>
     </ParallaxScrollView>
   );
