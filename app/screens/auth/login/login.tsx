@@ -92,7 +92,7 @@ const login = () => {
         </View>
         <Text style={{ textAlign: "center", fontSize: 18, marginTop: 50 }}>
           <Text>Not an User? </Text>
-          <Link href="/screens/auth/register/step1">
+          <Link href="/(tabs)">
             <Text style={{ color: "#019A2C" }}>Register</Text>
           </Link>
         </Text>

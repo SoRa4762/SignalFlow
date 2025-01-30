@@ -1,83 +1,79 @@
-import { Image, StyleSheet, Platform } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { useState } from "react";
+import { View, StyleSheet, TextInput } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { Link } from "expo-router";
-
-export default function HomeScreen() {
+const index = () => {
+  const [search, setSearch] = useState("");
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
+    <View style={styles.container}>
+      {/* <Text>index</Text> */}
+      <MapView
+        style={styles.container}
+        initialRegion={{
+          latitude: 33.8523,
+          longitude: 121.2108,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          coordinate={{ latitude: 33.8523, longitude: 121.2108 }}
+          title="Harbour Bridge"
+          description="Sydney Harbour Bridge is a bridge in Sydney, New South Wales, Australia, spanning the Sydney Harbour. Named after the Harbour Bridge, it connects the harbour to the city by passing over the Sydney Harbour Bridge Tunnel."
         />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Hello World!!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
-          to see changes. Press{" "}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: "cmd + d",
-              android: "cmd + m",
-              web: "F12",
-            })}
-          </ThemedText>{" "}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this
-          starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{" "}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText>{" "}
-          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{" "}
-          directory. This will move the current{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView>
-        <ThemedText type="subtitle">Step 4: Get started</ThemedText>
-        <Link href="/screens/landing/landingscreen">Go to landing screen</Link>
-      </ThemedView>
-    </ParallaxScrollView>
+      </MapView>
+      <View style={styles.input}>
+        <Feather
+          name="search"
+          size={18}
+          color="black"
+          // style={styles.icon}
+        />
+        <TextInput
+          style={styles.inputText}
+          onChangeText={(text) => setSearch(text)}
+          value={search}
+          placeholder="Search Location"
+        />
+        <Feather
+          name="map-pin"
+          size={18}
+          color="green"
+          // style={styles.icon}
+        />
+      </View>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    height: "100%",
+    width: "100%",
+  },
+
+  input: {
+    position: "absolute",
+    top: 20,
+    backgroundColor: "white",
+    borderWidth: 2,
+    borderColor: "#D9D9D9",
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    padding: 10,
+    width: "100%",
+    marginTop: 15,
+    marginBottom: 20,
+    fontSize: 16,
+    borderRadius: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+
+  inputText: {
+    fontSize: 18,
+    width: "90%",
+    padding: 5,
   },
 });
+
+export default index;

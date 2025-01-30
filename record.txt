@@ -1,0 +1,173 @@
+# colors
+
+## Text - Green 02BF38
+## Button 019A2C
+## minor Text 757575
+## Text - Black 3D3B3B
+
+## step 1
+
+import { View, Text, StyleSheet, TextInput } from "react-native";
+import React from "react";
+
+const register1 = () => {
+  return (
+    <View style={style.container}>
+      <View style={style.flexRow}>
+        <Text style={style.text1}>Registration</Text>
+        <Text>
+          <Text style={style.text2}>Step</Text>{" "}
+          <Text style={{ color: "#019A2C", fontSize: 10 }}>1</Text>{" "}
+          <Text style={style.text2}>of 3</Text>
+        </Text>
+      </View>
+      <Text style={{ color: "#808080", marginTop: 16, fontSize: 18 }}>
+        Please Provide Us Your Personal Details To Know You Better
+      </Text>
+
+      <Text style={style.label}>Name</Text>
+    </View>
+  );
+};
+
+const style = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    width: "100%",
+    padding: 20,
+  },
+  flexRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    marginTop: 20,
+  },
+  text1: {
+    fontSize: 26,
+    fontWeight: "600",
+  },
+  text2: {
+    fontSize: 10,
+  },
+  label: {
+    marginTop: 16,
+    fontSize: 18,
+  },
+});
+
+export default register1;
+
+
+## maps
+
+import React from "react";
+import MapView from "react-native-maps";
+import { StyleSheet, View } from "react-native";
+
+export default function HomeScreen() {
+  type mapType = {
+    region: {
+      latitude: number;
+      longitude: number;
+      latitudeDelta: number;
+      longitudeDelta: number;
+    };
+  };
+  const getInitialState = () => {
+    return {
+      region: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+    };
+  };
+
+  const onRegionChange = (region: mapType) => {
+    this.setState({ region });
+  };
+
+  return (
+    <MapView region={this.state.region} onRegionChange={this.onRegionChange} />
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    width: "100%",
+    height: "100%",
+  },
+});
+
+## working map file
+
+import { Feather } from "@expo/vector-icons";
+import { useState } from "react";
+import { View, Text, StyleSheet, TextInput } from "react-native";
+import MapView from "react-native-maps";
+
+const index = () => {
+  const [search, setSearch] = useState("");
+  return (
+    <View style={styles.container}>
+      {/* <Text>index</Text> */}
+      <MapView style={styles.container} />
+      <View style={styles.input}>
+        <Feather
+          name="search"
+          size={18}
+          color="black"
+          // style={styles.icon}
+        />
+        <TextInput
+          style={styles.inputText}
+          onChangeText={(text) => setSearch(text)}
+          value={search}
+          placeholder="location"
+        />
+        <Feather
+          name="map-pin"
+          size={18}
+          color="green"
+          // style={styles.icon}
+        />
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+  },
+
+  input: {
+    position: "absolute",
+    top: 20,
+    backgroundColor: "white",
+    borderWidth: 2,
+    borderColor: "#D9D9D9",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    width: "100%",
+    marginTop: 15,
+    marginBottom: 20,
+    fontSize: 16,
+    borderRadius: 8,
+  },
+
+  inputText: {
+    fontSize: 18,
+    width: "90%",
+    padding: 5,
+  },
+});
+
+export default index;
+

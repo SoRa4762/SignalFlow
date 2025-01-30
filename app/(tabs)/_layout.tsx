@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
-import React from "react";
-import { Platform } from "react-native";
+import React, { useState } from "react";
+import { Image, Platform, StyleSheet, Switch, View } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
@@ -10,6 +10,11 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+  };
 
   return (
     <Tabs
@@ -32,28 +37,76 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+            <IconSymbol size={28} name="location.fill" color={color} />
+          ),
+        }}
+      />
+      {/* Toggle Tab */}
+      <Tabs.Screen
+        name="toggle"
+        // This is a dummy screen that won't be used
+        listeners={{
+          tabPress: (e) => {
+            // Prevent default action
+            e.preventDefault();
+            toggleSwitch();
+          },
+        }}
+        options={{
+          title: "Emergency Mode",
+          tabBarIcon: ({ color }) => (
+            <View style={{ alignItems: "center" }}>
+              <Switch
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                thumbColor={isEnabled ? "#007AFF" : "#f4f3f4"}
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
+            </View>
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="profile"
         options={{
-          title: "Explore",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="location"
-        options={{
-          title: "Location",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="map.fill" color={color} />
+          title: "Profile",
+          // Network image example (e.g., user profile photo)
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={[
+                styles.tabIconContainer,
+                focused && styles.tabIconContainerActive,
+              ]}
+            >
+              <Image
+                // source={
+                //   // uri: "https://your-image-url.com/profile.jpg",
+                //   require("@/assets/images/PP.png"),
+                // }
+                source={require("@/assets/images/PP.png")}
+                style={styles.profilePhoto}
+              />
+            </View>
           ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabIconContainer: {
+    padding: 2,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "transparent",
+  },
+  tabIconContainerActive: {
+    borderColor: "#007AFF",
+  },
+  profilePhoto: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+  },
+});
