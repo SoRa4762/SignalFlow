@@ -12,48 +12,83 @@ import { useState } from "react";
 export default function StepOne() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
+    phone: "",
   });
 
   const handleNext = () => {
     // Add validation here
     router.push({
-      pathname: "/screens/Auth/register/step2",
+      pathname: "/screens/auth/register/step2",
       params: formData,
+    });
+  };
+
+  const handleBack = () => {
+    // Add validation here
+    router.push({
+      pathname: "/screens/auth/login/login",
     });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Personal Information</Text>
+      <Text style={styles.title}>Registration</Text>
+      <Text style={{ fontSize: 18, color: "#808080", marginBottom: 25 }}>
+        Please Provide Us Your Personal Details To Know You Better
+      </Text>
 
+      <Text style={styles.label}>Name</Text>
       <TextInput
         style={styles.input}
-        placeholder="First Name"
-        value={formData.firstName}
-        onChangeText={(text) => setFormData({ ...formData, firstName: text })}
+        placeholder="John Doe"
+        value={formData.name}
+        onChangeText={(text) => setFormData({ ...formData, name: text })}
       />
 
+      <Text style={styles.label}>Email</Text>
       <TextInput
         style={styles.input}
-        placeholder="Last Name"
-        value={formData.lastName}
-        onChangeText={(text) => setFormData({ ...formData, lastName: text })}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
+        placeholder="johndoe1@gmail.com"
         value={formData.email}
+        keyboardType="email-address"
         onChangeText={(text) => setFormData({ ...formData, email: text })}
       />
 
+      <Text style={styles.label}>Phone</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="+61 410222999"
+        keyboardType="phone-pad"
+        value={formData.phone}
+        onChangeText={(text) => setFormData({ ...formData, phone: text })}
+      />
       <TouchableOpacity style={styles.button} onPress={handleNext}>
         <Text style={styles.buttonText}>Next</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{
+          backgroundColor: "transparent",
+          padding: 15,
+          borderRadius: 6,
+          borderWidth: 2,
+          borderColor: "#019A2C",
+          marginBottom: 20,
+        }}
+        onPress={handleBack}
+      >
+        <Text
+          style={{
+            color: "#019A2C",
+            textAlign: "center",
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+        >
+          Back
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -67,17 +102,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
+    marginBottom: 15,
+    marginTop: 20,
+    // textAlign: "center",
   },
   input: {
     borderWidth: 1,
     borderColor: "#ddd",
     padding: 15,
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 30,
     fontSize: 16,
   },
   buttonContainer: {
@@ -86,10 +122,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#019A2C",
     padding: 15,
-    borderRadius: 10,
-    flex: 0.48,
+    borderRadius: 6,
+    marginBottom: 20,
+    // flex: 0.48,
   },
   buttonBack: {
     backgroundColor: "#6c757d",
@@ -122,5 +159,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     borderStyle: "dashed",
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 10,
   },
 });

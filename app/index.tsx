@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#019A2C",
     padding: 12,
     borderRadius: 6,
-    flex: 1,
-    flexDirection: "row",
+    // flex: 1,
+    // flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 4,
@@ -96,10 +96,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontSize: 16,
+    marginRight: 10,
     fontWeight: "500",
   },
   icon: {
-    marginLeft: 8,
+    marginLeft: 10,
     fontSize: 18,
     // fontWeight: "bold",
   },

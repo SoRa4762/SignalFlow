@@ -11,17 +11,18 @@ const index = () => {
       <MapView
         style={styles.container}
         initialRegion={{
-          latitude: 33.8523,
-          longitude: 121.2108,
-          latitudeDelta: 0.0922,
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.05,
           longitudeDelta: 0.0421,
         }}
       >
         <Marker
-          coordinate={{ latitude: 33.8523, longitude: 121.2108 }}
-          title="Harbour Bridge"
-          description="Sydney Harbour Bridge is a bridge in Sydney, New South Wales, Australia, spanning the Sydney Harbour. Named after the Harbour Bridge, it connects the harbour to the city by passing over the Sydney Harbour Bridge Tunnel."
+          coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+          // title="Harbour Bridge"
+          // description="Sydney Harbour Bridge is a bridge in Sydney, New South Wales, Australia, spanning the Sydney Harbour. Named after the Harbour Bridge, it connects the harbour to the city by passing over the Sydney Harbour Bridge Tunnel."
         />
+        <Marker coordinate={{ latitude: 37.80457, longitude: -122.4578 }} />
       </MapView>
       <View style={styles.input}>
         <Feather

@@ -1,79 +1,126 @@
-// app/register/StepThree.js
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+// app/register/StepOne.js
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import * as ImagePicker from "expo-image-picker";
+import DatePicker from "react-native-date-picker";
 
-export default function StepThree() {
+export default function StepOne() {
   const router = useRouter();
   const params = useLocalSearchParams();
-  const [image, setImage] = useState(null);
 
-  const pickImage = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  // interface IFormData {
+  //   cardNumber: Number;
+  //   issuedDate: Date;
+  //   drivingLicencePhoto: String;
+  //   profilePhoto: String;
+  // }
 
-    if (status !== "granted") {
-      alert("Sorry, we need camera roll permissions to make this work!");
-      return;
-    }
+  const [formData, setFormData] = useState<any>({
+    cardNumber: "",
+    issuedDate: "",
+    drivingLicencePhoto: "",
+    profilePhoto: "",
+  });
+  const [date, setDate] = useState(new Date());
 
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
+  const handleNext = () => {
+    // Add validation here
+    router.push({
+      pathname: "/screens/auth/register/step3",
+      params: { ...params, ...formData },
     });
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
-
-  const handleSubmit = () => {
-    // Handle form submission with all data
-    const finalFormData = {
-      ...params,
-      profileImage: image,
-    };
-    console.log("Final Form Data:", finalFormData);
-    // Navigate to success screen or home
-    router.push("/register/Success");
   };
 
   const handleBack = () => {
-    router.back();
+    // Add validation here
+    router.push({
+      pathname: "/screens/auth/register/step2",
+    });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile Photo</Text>
+      <Text style={styles.title}>Documents Details</Text>
+      <Text style={{ fontSize: 18, color: "#808080", marginBottom: 25 }}>
+        Please Provide Us Your driving lisence and other details
+      </Text>
 
-      <TouchableOpacity style={styles.imageContainer} onPress={pickImage}>
-        {image ? (
-          <Image source={{ uri: image }} style={styles.image} />
-        ) : (
-          <View style={styles.placeholderImage}>
-            <Text>Tap to add photo</Text>
-          </View>
-        )}
+      <Text style={styles.label}>Driving Licence Card</Text>
+      <Text style={styles.label2}>Card Number</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="2345678901"
+        value={formData.cardNumber}
+        keyboardType="phone-pad"
+        onChangeText={(text) => setFormData({ ...formData, cardNumber: text })}
+      />
+
+      <Text style={styles.label2}>Issued Date</Text>
+      {/* <TextInput
+        style={styles.input}
+        placeholder="car"
+        value={formData.vehicleType}
+        onChangeText={(text) => setFormData({ ...formData, vehicleType: text })}
+      /> */}
+      {/* <DatePicker
+        mode="date"
+        date={new Date()}
+        // onStateChange={(text) => setFormData({ ...formData, issuedDate: text })}
+        // date={new Date()}
+        // onDateChange={(date) => {
+        //   setFormData({ ...formData, issuedDate: date });
+        // }}
+      /> */}
+      <DatePicker date={date} onDateChange={setDate} />
+
+      <Text style={styles.label}>Plate Number</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="BG 3456 CB"
+        value={formData.plateNumber}
+        onChangeText={(text) => setFormData({ ...formData, phone: text })}
+      />
+
+      <Text style={styles.label}>Address</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="36 China Town"
+        // keyboardType="phone-pad"
+        value={formData.plateNumber}
+        onChangeText={(text) => setFormData({ ...formData, phone: text })}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleNext}>
+        <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[styles.button, styles.buttonBack]}
-          onPress={handleBack}
+      <TouchableOpacity
+        style={{
+          backgroundColor: "transparent",
+          padding: 15,
+          borderRadius: 6,
+          borderWidth: 2,
+          borderColor: "#019A2C",
+          marginBottom: 20,
+        }}
+        onPress={handleBack}
+      >
+        <Text
+          style={{
+            color: "#019A2C",
+            textAlign: "center",
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
         >
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.button, !image && styles.buttonDisabled]}
-          onPress={handleSubmit}
-          disabled={!image}
-        >
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
+          Back
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -86,17 +133,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
+    marginBottom: 15,
+    marginTop: 20,
+    // textAlign: "center",
   },
   input: {
     borderWidth: 1,
     borderColor: "#ddd",
     padding: 15,
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 30,
     fontSize: 16,
   },
   buttonContainer: {
@@ -105,10 +153,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#019A2C",
     padding: 15,
-    borderRadius: 10,
-    flex: 0.48,
+    borderRadius: 6,
+    marginBottom: 20,
+    // flex: 0.48,
   },
   buttonBack: {
     backgroundColor: "#6c757d",
@@ -141,5 +190,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     borderStyle: "dashed",
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  label2: {
+    fontSize: 12,
+    marginBottom: 10,
   },
 });
