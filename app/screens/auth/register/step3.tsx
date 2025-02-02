@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import DatePicker from "react-native-date-picker";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 export default function StepOne() {
   const router = useRouter();
@@ -77,9 +77,21 @@ export default function StepOne() {
         //   setFormData({ ...formData, issuedDate: date });
         // }}
       /> */}
-      <DatePicker date={date} onDateChange={setDate} />
+      {/* <DatePicker date={date} onDateChange={setDate} /> */}
+      {/* <RNDateTimePicker
+        // dateFormat="day month year"
+        value={new Date()}
+        mode="date"
+        // onChange={setDate}
+      /> */}
 
-      <Text style={styles.label}>Plate Number</Text>
+      <Text style={{ marginBottom: 30 }}>Should be a date picker here</Text>
+
+      <Text style={styles.label}>Profile Photo</Text>
+      <Text style={{ fontSize: 12, color: "#808080", marginBottom: 25 }}>
+        Please provide us with a clear potrait picture of yourself. It should
+        contain your face only.
+      </Text>
       <TextInput
         style={styles.input}
         placeholder="BG 3456 CB"
@@ -87,14 +99,6 @@ export default function StepOne() {
         onChangeText={(text) => setFormData({ ...formData, phone: text })}
       />
 
-      <Text style={styles.label}>Address</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="36 China Town"
-        // keyboardType="phone-pad"
-        value={formData.plateNumber}
-        onChangeText={(text) => setFormData({ ...formData, phone: text })}
-      />
       <TouchableOpacity style={styles.button} onPress={handleNext}>
         <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>

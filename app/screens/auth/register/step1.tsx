@@ -15,6 +15,7 @@ export default function StepOne() {
     name: "",
     email: "",
     phone: "",
+    password: "",
   });
 
   const handleNext = () => {
@@ -64,6 +65,19 @@ export default function StepOne() {
         value={formData.phone}
         onChangeText={(text) => setFormData({ ...formData, phone: text })}
       />
+
+      <Text style={styles.label}>Password</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="********"
+        // keyboardType="phone-pad"
+        value={formData.password}
+        onChangeText={(text) => setFormData({ ...formData, password: text })}
+      />
+
+      <Text style={styles.label}>Confirm Password</Text>
+      <TextInput style={styles.input} placeholder="********" />
+
       <TouchableOpacity style={styles.button} onPress={handleNext}>
         <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
